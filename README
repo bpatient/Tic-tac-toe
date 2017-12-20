@@ -1,4 +1,13 @@
-This is your new Play application
-=====================================
+This is TIC-TAC-TOE API
+=======================
 
-This file will be packaged with your application, when using `play dist`.
+This API is used to play tic-tac-toe game between HUMAN and COMPUTER.
+The HUMAN player plays with "x" symbol and sends this new moves through an API request: "curl APP_URL?board=+xxo++o++"
+The COMPUTER player plays with "o" symbol and responds to the API request with a new board containing this new move as well.
+
+The main controller containing all necessary functions of the game can be found in "app/com/pbaraka/controllers/Game.java"
+
+
+Demo: https://salty-shelf-18899.herokuapp.com/play?board=++x++++++
+
+Developed by Patient Baraka

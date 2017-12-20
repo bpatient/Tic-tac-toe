@@ -4,6 +4,11 @@ import java.util.Random;
 
 import play.mvc.*;
 
+/**
+ * @author Patient Baraka
+ * 
+ * This the Game controller that contains all necessary functions to run the game.
+ */
 public class Game extends Controller {
 	
 	private static final char EMPTY = ' ';
@@ -58,12 +63,13 @@ public class Game extends Controller {
             	boardCounter++;
             }
         }        
-
-		// Computer start playing if user input is Empty
-		if(board.trim().isEmpty())
-			gameGrid[randomNumber(0,2)][randomNumber(0,2)] = COMPUTER;
     }
 	
+	/**
+	 * This function is the engine of this game.
+	 * It determines when & where the COMPUTER should move and
+	 * returns the output to the API request for every new move
+	 */
 	private static void playGame() {
 		while(true) {			
 			// Check if there's a winner or it's a draw
@@ -72,7 +78,7 @@ public class Game extends Controller {
 			else if(isDraw())
 				break;
 			else {
-				// Computer checks where to move
+				// Computer checks where to move in order to WIN or prevent HUMAN to win
 				for (int i = 0; i < SIDE_LENGTH; i++) {
 		            for (int j = 0; j < SIDE_LENGTH; j++) {
 		            	if(gameGrid[i][j] == EMPTY) {
@@ -83,13 +89,29 @@ public class Game extends Controller {
 		            	}
 		            }		            
 		        }
-				// To be improved from here ...
-				return;
+				
+				
+				/* Computer moves to a random empty position 
+				 * if it was unable to move for WIN or prevent HUMAN to win
+				 */
+				while(true) {
+					int randRow = randomNumber(0,2);
+					int randCol = randomNumber(0,2);
+					if(gameGrid[randRow][randCol] == EMPTY) {
+						gameGrid[randRow][randCol] = COMPUTER;
+						return;
+					}
+				}
 			}
 		}
     }
 	
 	
+	/**
+	 * This function return true if there is a winner (COMPUTER or HUMAN) for 
+	 * all different cases by: row crossing, column crossing or diagonal crossing
+	 * @return
+	 */
 	private static boolean isWinner() {
 		if (gameGrid[0][0] == gameGrid[1][0] && gameGrid[1][0] == gameGrid[2][0] && (gameGrid[0][0] == HUMAN || gameGrid[0][0] == COMPUTER))
             return true;
@@ -111,6 +133,12 @@ public class Game extends Controller {
             return false;
     }
 	
+	/**
+	 * This function detect if it's tie/draw
+	 * and prevent any new move for both players.
+	 * It return true if there is no empty space in the board.
+	 * @return
+	 */
 	private static boolean isDraw() {
 		for (int i = 0; i < SIDE_LENGTH; i++) {
             for (int j = 0; j < SIDE_LENGTH; j++) {
@@ -121,6 +149,14 @@ public class Game extends Controller {
 		return true;
     }
     
+	/**
+	 * This function is used to detect all new moves that can help the COMPUTER to win or 
+	 * help the computer to prevent the HUMAN to win by moving to that empty space.
+	 * It's applicable on a grid of 3x3 sides
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	private static boolean isComputerMoved(int row, int col) {
 		// Check all cases on position [0,0] or [2,2]
 		if(row == col && (row == 0 || row == 2)) {
@@ -196,8 +232,7 @@ public class Game extends Controller {
 				gameGrid[row][col] = COMPUTER;
 				return true;
 			}
-	    }	
-		
+	    }
 		
 		return false;
 	}

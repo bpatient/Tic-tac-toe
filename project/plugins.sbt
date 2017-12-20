@@ -10,4 +10,4 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.6")
 // generate war plugin
 // addSbtPlugin("com.github.play2war" % "play2-war-plugin" % "1.2-beta1")
 addSbtPlugin("com.github.play2war" % "play2-war-plugin" % "1.2")
-addSbtPlugin("com.heroku" % "sbt-heroku" % "2.0.0")
+// addSbtPlugin("com.heroku" % "sbt-heroku" % "2.0.0")

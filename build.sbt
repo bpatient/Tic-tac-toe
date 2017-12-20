@@ -15,3 +15,5 @@ Play2WarPlugin.play2WarSettings
 Play2WarKeys.servletVersion := "3.0"
 
 play.Project.playJavaSettings
+
+// herokuAppName in Compile := "still-atoll-93888"
